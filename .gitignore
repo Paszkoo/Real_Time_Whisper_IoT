@@ -1,1 +1,4 @@
-test.txt
+.venv
+EMQXcert.crt
+*.wav
+__pycache__
