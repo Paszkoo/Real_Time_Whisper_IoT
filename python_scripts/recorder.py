@@ -1,10 +1,11 @@
 import sounddevice as sd
 import numpy as np
 from scipy.io.wavfile import write
+import time
 
 # Ustawienia domyślne
-SAMPLE_RATE = 44100  # Próbkowanie 44.1 kHz
-CHANNELS = 1         # Kanał mono
+SAMPLE_RATE = 44100
+CHANNELS = 1
 
 def record_audio(duration: int):
     """
@@ -13,7 +14,7 @@ def record_audio(duration: int):
     :param duration: Czas nagrania w sekundach
     :return: Zwraca nagranie audio jako tablicę numpy
     """
-    print(f"Nagrywanie przez {duration} sekund...")
+    #print(f"Nagrywanie przez {duration} sekund...")
     recording = sd.rec(int(duration * SAMPLE_RATE), samplerate=SAMPLE_RATE, channels=CHANNELS, dtype='float32')
     sd.wait()  # Czekaj na zakończenie nagrania
     print("Nagrywanie zakończone.")
@@ -29,7 +30,7 @@ def normalize_audio(audio_data: np.ndarray, target_amplitude=0.8):
     """
     max_amplitude = np.max(np.abs(audio_data))
     normalized_audio = (audio_data / max_amplitude) * target_amplitude
-    print(f"Audio znormalizowane do poziomu {target_amplitude}")
+    #print(f"Audio znormalizowane do poziomu {target_amplitude}")
     return normalized_audio
 
 def save_audio_to_file(audio_data: np.ndarray, filename: str):
@@ -41,7 +42,7 @@ def save_audio_to_file(audio_data: np.ndarray, filename: str):
     """
     scaled_audio = np.int16(audio_data * 32767)
     write(filename, SAMPLE_RATE, scaled_audio)
-    print(f"Nagranie zapisane do pliku {filename}")
+    #print(f"Nagranie zapisane do pliku {filename}")
 
 def process_audio(audio_data: np.ndarray):
     """
@@ -49,8 +50,8 @@ def process_audio(audio_data: np.ndarray):
     
     :param audio_data: Tablica numpy z danymi audio
     """
-    print(f"Długość nagrania: {len(audio_data) / SAMPLE_RATE:.2f} s")
-    print(f"Maksymalna amplituda: {np.max(np.abs(audio_data)):.2f}")
+    #print(f"Długość nagrania: {len(audio_data) / SAMPLE_RATE:.2f} s")
+    #print(f"Maksymalna amplituda: {np.max(np.abs(audio_data)):.2f}")
 
 # Przykład użycia
 if __name__ == "__main__":
@@ -58,6 +59,10 @@ if __name__ == "__main__":
     filename = "nagranie.wav"
     
     audio_data = record_audio(czas_nagrania)
-    audio_data = normalize_audio(audio_data)  # Normalizacja nagrania
+    #audio_data = normalize_audio(audio_data)  # Normalizacja nagrania
+    start_time = time.time() 
     process_audio(audio_data)
     save_audio_to_file(audio_data, filename)
+    end_time = time.time()
+    elapsed_time = end_time - start_time  # Oblicza różnicę czasu
+    print(f"Czas pomiędzy zdarzeniami: {elapsed_time:.2f} sekund.")

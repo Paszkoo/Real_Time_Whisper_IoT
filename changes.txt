@@ -1,0 +1,6 @@
+Zmiany wersja 1.0
+- CUDA działa i sporo przyszpiesza transkrypcje
+- Zmiana sposobu nagrywania chunkow, 
+  nagrywa sie jeden plik i nastepny
+  go podmienia. Program potrafił się blokować na 10.
+- kod poczyszczony z printow
