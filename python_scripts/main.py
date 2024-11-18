@@ -7,12 +7,17 @@ import numpy as np
 import time
 import torch
 
+DEV = False
+
+# plik z certyfikatem SSL do brokera MQTT musi
+# nazywac sie MQTTcert.crt
+
 # Inicjalizacja modelu Whisper
 print("Ładowanie modelu Whisper...")
-# small 2gb GPU RAM
-# medium 5gb GPU RAM
-# large 10gb GPU RAM
-# turbo 6gb GPU RAM
+## small 2gb GPU RAM
+## medium 5gb GPU RAM
+## large 10gb GPU RAM
+## turbo 6gb GPU RAM
 model_size = "medium"
 
 if torch.cuda.is_available():
@@ -25,18 +30,30 @@ else:
 model = WhisperModel(model_size, device=device, compute_type="float16" if device == "cuda" else "int8")
 
 # Parametry nagrania i MQTT
-chunk_duration = 2  # Czas trwania chunków w sekundach
-total_duration = 120  # Całkowity czas działania programu w sekundach
+chunk_duration = 5  # Czas trwania chunków w sekundach
+total_duration = 360  # Całkowity czas działania programu w sekundach
 broker_address = ""  # Adres brokera MQTT (zmień na odpowiedni adres)
 topic = "whisper"  # Temat MQTT
-username = ""  # Użytkownik do logowania
-password = ""  # Hasło użytkownika
-ca_certs = "./cert.crt"  # Ścieżka do certyfikatu SSL
+username = "testowy"  # Użytkownik do logowania
+password = "test"  # Hasło użytkownika
+
+if DEV == True:
+    ca_certs = "./MQTTcert.crt"  # Ścieżka do certyfikatu SSL
+else:
+    ca_certs = "/app/python_scripts/MQTTcert.crt" 
 
 
 start_time = time.time()  # Start odliczania czasu
 
+# Funkcja zamienia polskie znaki specjalne na ich odpowiedniki 
+# w alfabecie łacińskim
+
 def remove_polish_characters(text):
+    '''
+        Funkcja zamienia polskie znaki specjalne na ich odpowiedniki 
+        w alfabecie łacińskim. Zeby mogly byc poprawnie wyswietlanie na
+        za pomoca plytki Node MCU v3
+    '''
     replacements = {
         'ą': 'a', 'ć': 'c', 'ę': 'e', 'ł': 'l', 'ń': 'n',
         'ó': 'o', 'ś': 's', 'ż': 'z', 'ź': 'z',
@@ -52,8 +69,8 @@ while (time.time() - start_time) < total_duration:
 
     # Nagrywanie i przetwarzanie audio
     audio_data = record_audio(chunk_duration)
-    audio_data = normalize_audio(audio_data)
-    process_audio(audio_data)
+    #audio_data = normalize_audio(audio_data)
+    #process_audio(audio_data)
 
     # Zapis do pliku tymczasowego
     save_audio_to_file(audio_data, temp_filename)

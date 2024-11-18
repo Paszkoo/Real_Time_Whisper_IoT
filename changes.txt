@@ -4,3 +4,12 @@ Zmiany wersja 1.0
   nagrywa sie jeden plik i nastepny
   go podmienia. Program potrafił się blokować na 10.
 - kod poczyszczony z printow
+
+Zmiany wersja 1.1:
+- Nowy plik Real_Time_whisper_IoT/Dockerfile. Skrypt tworzacy 
+  image dockera pod Real_Time_whisper_IoT
+- Ulepszony sposób wybierania mikrofonu. Teraz można zaznaczyc
+  wybrane urzadzenie do nagrywania, zamiast autmatycznego wyboru.
+  Do tego w recorder.py funkcja main mozna testowac po kolei kazde urzadzenie
+  ktore widzi Real_Time_whisper_IoT
+- 
