@@ -24,12 +24,19 @@ It uses Open AI Whisper model and by recording 2 second chunks from default audi
 2. NVIDIA Container Toolkit for docker so it can read GPU
 3. SSL cert for MQTT connection in /python_scripts/MQTTcert.crt
 
-### instructions
-1. cd Real_Time_whisper_IoT
-2. sudo docker build -t Real_Time_whisper_IoT .
+### instructions whisper_RealTime 
+1. cd whisper_realTime
+2. sudo docker build -t whisper_realTime .
 
-### Run
-docker run --gpus all --device /dev/snd:/dev/snd --rm -it whisper-audio-app
+### whisper_RealTime run:
+sudo docker run --gpus all --device /dev/snd:/dev/snd --rm -it whisper_realTime
+
+### instructions YOLOv8 
+1. cd YOLOv8
+2. sudo docker build -t yolo-app .
+
+### YOLOv8 run:
+sudo docker run --rm --device=/dev/video0:/dev/video0 yolo-app
 
 
 ### mic not working

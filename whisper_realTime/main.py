@@ -32,7 +32,7 @@ model = WhisperModel(model_size, device=device, compute_type="float16" if device
 # Parametry nagrania i MQTT
 chunk_duration = 5  # Czas trwania chunków w sekundach
 total_duration = 360  # Całkowity czas działania programu w sekundach
-broker_address = ""  # Adres brokera MQTT (zmień na odpowiedni adres)
+broker_address = "a9aa313a.ala.eu-central-1.emqxsl.com"  # Adres brokera MQTT (zmień na odpowiedni adres)
 topic = "whisper"  # Temat MQTT
 username = "testowy"  # Użytkownik do logowania
 password = "test"  # Hasło użytkownika
@@ -40,7 +40,7 @@ password = "test"  # Hasło użytkownika
 if DEV == True:
     ca_certs = "./MQTTcert.crt"  # Ścieżka do certyfikatu SSL
 else:
-    ca_certs = "/app/python_scripts/MQTTcert.crt" 
+    ca_certs = "/app/MQTTcert.crt" 
 
 
 start_time = time.time()  # Start odliczania czasu

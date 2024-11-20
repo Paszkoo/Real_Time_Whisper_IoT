@@ -1,4 +1,5 @@
 .venv
-EMQXcert.crt
+*.crt
 *.wav
 __pycache__
+*.pt

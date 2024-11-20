@@ -12,4 +12,7 @@ Zmiany wersja 1.1:
   wybrane urzadzenie do nagrywania, zamiast autmatycznego wyboru.
   Do tego w recorder.py funkcja main mozna testowac po kolei kazde urzadzenie
   ktore widzi Real_Time_whisper_IoT
-- 
+
+Zmiany wersja 1.2:
+- Dodano rozponawanie obiektow za pomoca YOLOv8
+- Pozmieniane nazwy folderow, Zmiana lokallizacji Dockerfile

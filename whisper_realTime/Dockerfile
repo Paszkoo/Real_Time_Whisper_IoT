@@ -27,7 +27,7 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1
 
 # Skopiowanie projektu
 WORKDIR /app
-COPY ./python_scripts /app/python_scripts
+COPY ./ /app/python_scripts
 
 # Instalacja zależności z requirements.txt
 RUN pip3 install --upgrade pip && pip3 install -r /app/python_scripts/requirements.txt
