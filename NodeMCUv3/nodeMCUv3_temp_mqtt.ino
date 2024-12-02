@@ -22,6 +22,7 @@ const char* mqtt_user = "testowy";
 const char* mqtt_password = "test";
 const char* topic_temperature = "temperature"; // nowy temat do wysylania temperatury
 const char* topic_whisper = "whisper"; // temat do odbierania wiadomosci
+const char* topic_yolo = "object_recognition";
 
 // Inicjalizacja klienta z certyfikatem
 BearSSL::WiFiClientSecure espClient;
@@ -102,6 +103,7 @@ void connectToMQTT() {
     if (client.connect(client_id.c_str(), mqtt_user, mqtt_password)) {
       Serial.println("Connected to MQTT broker");
       client.subscribe(topic_whisper); // Subskrypcja tematu "whisper"
+      client.subscribe(topic_yolo); // Subskrypcja tematu yolo
     } else {
       // Wypisanie szczegolowego bledu SSL
       char error_msg[128];
@@ -111,6 +113,10 @@ void connectToMQTT() {
       delay(5000); // Odczekaj 5 sekund przed ponowna proba
     }
   }
+}
+void clearBottomRow() {
+  lcd.setCursor(0, 1);
+  lcd.print("                ");
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
@@ -123,8 +129,23 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
   Serial.println(message);
 
-  // Dodanie slowa do bufora
-  wordBuffer.push_back(message);
+  if (String(topic) == topic_whisper) {
+    // Przetwarzanie wiadomości z tematu "whisper"
+    wordBuffer.push_back(message);
+    Serial.println("Added message to buffer for display on LCD.");
+  } else if (String(topic) == topic_yolo) {
+    clearBottomRow();
+    lcd.setCursor(0, 1);
+    lcd.print(message);
+    Serial.println("Message displayed on LCD (bottom row).");
+  } else {
+    // Obsługa innych tematów
+    Serial.println("Message received on an unknown topic.");
+  }
+}
+void clearTopRow() {
+  lcd.setCursor(0, 0);
+  lcd.print("                ");
 }
 
 void loop() {
@@ -154,6 +175,7 @@ void loop() {
   long now = millis();
   if (now - lastDisplayTime > displayInterval && !wordBuffer.empty()) {
     lcd.clear();
+    clearTopRow();
     lcd.setCursor(0, 0);
     lcd.print(wordBuffer[currentIndex]);
 

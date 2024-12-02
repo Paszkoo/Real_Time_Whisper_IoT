@@ -16,3 +16,8 @@ Zmiany wersja 1.1:
 Zmiany wersja 1.2:
 - Dodano rozponawanie obiektow za pomoca YOLOv8
 - Pozmieniane nazwy folderow, Zmiana lokallizacji Dockerfile
+
+Zmiany wersja 1.3:
+- Dodany serwer statystyk grafana z data source influxdb12.7
+- uruchamiany poprzez docer compose
+- wyswietlanie wiadomosci z tematu yolo na ekranie lcd

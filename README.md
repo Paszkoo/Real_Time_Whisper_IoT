@@ -1,6 +1,6 @@
-# Real Time Whisper by Paszko V1.0, 
+# Real Time Whisper by Paszko V1.3, 
 ### Description
-It uses Open AI Whisper model and by recording 2 second chunks from default audio input device, prints recognized speech. Works with both CPU and CUDA and has special function for choosing it so it wont crash. Require linux to dockerize it.
+It uses Open AI Whisper model and by recording 2 second chunks from default audio input device, prints recognized speech. Works with both CPU and CUDA and has special function for choosing it so it wont crash. Require linux to dockerize it. I know there are tokens and ssl certs in code but its just for testing okay..
 
 ### Linux required for easier installation, making docker can read microphone from windows is quite complicated
 
@@ -29,7 +29,7 @@ It uses Open AI Whisper model and by recording 2 second chunks from default audi
 2. sudo docker build -t whisper_realTime .
 
 ### whisper_RealTime run:
-sudo docker run --gpus all --device /dev/snd:/dev/snd --rm -it whisper_realTime
+sudo docker run --gpus all --device /dev/snd:/dev/snd --rm -it whisper-audio-app
 
 ### instructions YOLOv8 
 1. cd YOLOv8
@@ -37,6 +37,23 @@ sudo docker run --gpus all --device /dev/snd:/dev/snd --rm -it whisper_realTime
 
 ### YOLOv8 run:
 sudo docker run --rm --device=/dev/video0:/dev/video0 yolo-app
+
+## Grafana 'n influx stats server setup and run
+1. cd grafana_influx_stats
+2. sudo docker compose up --build
+
+## NodeMCU v3 setup
+### I2C LCD wireing
+VCC -> VV
+GND -> G
+SCL -> D1
+SDA -> D2
+
+### DallasTemperature sensor wireing
+Middle Pin (data) -> D3
+GND -> GND
+VCC -> 3V with resistor
+
 
 
 ### mic not working
