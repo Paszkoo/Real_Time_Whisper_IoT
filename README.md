@@ -1,6 +1,6 @@
 # Real Time Whisper by Paszko V1.3, 
 ### Description
-It uses Open AI Whisper model and by recording 2 second chunks from default audio input device, prints recognized speech. Works with both CPU and CUDA and has special function for choosing it so it wont crash. Require linux to dockerize it. I know there are tokens and ssl certs in code but its just for testing okay..
+It uses Locally Open AI Whisper model and by recording 2 second chunks from default audio input device, prints recognized speech. And RTWI* uses Yolov8 model to predict what he can see from laptop camera. Works with both CPU and CUDA. Required linux to dockerize it. I know there are tokens and ssl certs in code but its just for testing okay..
 
 ### Linux required for easier installation, making docker can read microphone from windows is quite complicated
 
